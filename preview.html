@@ -1,0 +1,675 @@
+<title>A3S LLC — Rideshare Car Rental in Irving, TX</title>
+<style>
+/* ---------------------------------------------------------------
+   A3S LLC
+   Palette drawn from the logo: navy ground, logo blue, one amber
+   signal reserved for the primary action. Neutrals carry a blue
+   bias so they read as chosen rather than inherited.
+   --------------------------------------------------------------- */
+:root {
+  --ground:      #eef2f7;
+  --surface:     #ffffff;
+  --surface-2:   #f7f9fc;
+  --ink:         #0b1b33;
+  --ink-2:       #334a68;
+  --muted:       #5a6b82;
+  --line:        #d7e0ec;
+  --brand:       #1b6ac9;
+  --brand-deep:  #0e3a6b;
+  --brand-ink:   #ffffff;
+  --signal:      #f5a524;
+  --signal-ink:  #2b1a00;
+  --sign-field:  #0b2444;
+  --sign-edge:   rgba(255,255,255,.55);
+  --on-sign:     #f4f8ff;
+  --on-sign-dim: #a8c0dd;
+
+  --font-display: "Avenir Next Condensed", "HelveticaNeue-CondensedBold", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Avenir Next", Avenir, "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  --font-num: "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+
+  --maxw: 1120px;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground:      #070f1c;
+    --surface:     #0e1a2b;
+    --surface-2:   #122339;
+    --ink:         #e9eff8;
+    --ink-2:       #b9c9dd;
+    --muted:       #8da3bd;
+    --line:        #1f3350;
+    --brand:       #5aa2ec;
+    --brand-deep:  #8cc2ff;
+    --brand-ink:   #05121f;
+    --signal:      #ffc24d;
+    --signal-ink:  #2b1a00;
+    --sign-field:  #081a2f;
+    --sign-edge:   rgba(255,255,255,.40);
+    --on-sign:     #eaf2ff;
+    --on-sign-dim: #9bb4d2;
+  }
+}
+:root[data-theme="dark"] {
+  --ground:      #070f1c;
+  --surface:     #0e1a2b;
+  --surface-2:   #122339;
+  --ink:         #e9eff8;
+  --ink-2:       #b9c9dd;
+  --muted:       #8da3bd;
+  --line:        #1f3350;
+  --brand:       #5aa2ec;
+  --brand-deep:  #8cc2ff;
+  --brand-ink:   #05121f;
+  --signal:      #ffc24d;
+  --signal-ink:  #2b1a00;
+  --sign-field:  #081a2f;
+  --sign-edge:   rgba(255,255,255,.40);
+  --on-sign:     #eaf2ff;
+  --on-sign-dim: #9bb4d2;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: var(--brand); }
+:focus-visible { outline: 3px solid var(--signal); outline-offset: 2px; border-radius: 4px; }
+
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 22px; }
+
+/* ---- draft notice: delete this element before going live ---- */
+.draft {
+  background: var(--signal); color: var(--signal-ink);
+  font-size: 13px; font-weight: 700; text-align: center;
+  padding: 7px 14px; letter-spacing: .01em;
+}
+
+/* ---- header ---- */
+.site-head {
+  position: sticky; top: 0; z-index: 20;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.site-head .wrap {
+  display: flex; align-items: center; gap: 22px;
+  min-height: 70px;
+}
+/* The logo artwork has a white ground, so give it a deliberate white plate:
+   invisible against the light header, a tidy badge against the dark one. */
+.brand img {
+  width: 108px; height: auto;
+  background: #fff; padding: 6px 9px; border-radius: 7px;
+}
+.nav { display: flex; gap: 20px; margin-left: 12px; }
+.nav a {
+  color: var(--ink-2); text-decoration: none; font-size: 14px; font-weight: 600;
+  padding: 4px 0; border-bottom: 2px solid transparent;
+}
+.nav a:hover { color: var(--ink); border-bottom-color: var(--brand); }
+.head-actions { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+.tel {
+  font-family: var(--font-num); font-size: 15px; font-weight: 600;
+  color: var(--ink); text-decoration: none; white-space: nowrap;
+}
+.tel:hover { color: var(--brand); }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: var(--font-body); font-size: 15px; font-weight: 700;
+  padding: 11px 20px; border-radius: var(--r); border: 2px solid transparent;
+  text-decoration: none; cursor: pointer; white-space: nowrap;
+  transition: transform .12s ease, background-color .12s ease, box-shadow .12s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn-signal { background: var(--signal); color: var(--signal-ink); box-shadow: 0 2px 0 rgba(0,0,0,.18); }
+.btn-signal:hover { background: #ffb73d; }
+.btn-ghost-light { border-color: var(--sign-edge); color: var(--on-sign); }
+.btn-ghost-light:hover { background: rgba(255,255,255,.08); }
+.btn-outline { border-color: var(--line); color: var(--ink); background: var(--surface); }
+.btn-outline:hover { border-color: var(--brand); color: var(--brand); }
+
+/* ---- hero: built as a highway guide sign ---- */
+.hero { padding: 34px 0 54px; }
+.sign {
+  background: var(--sign-field);
+  border-radius: 16px;
+  padding: 12px;
+  box-shadow: 0 18px 40px -22px rgba(11,27,51,.6);
+}
+.sign-inner {
+  border: 2px solid var(--sign-edge);
+  border-radius: 10px;
+  padding: 46px 40px 42px;
+}
+.eyebrow {
+  font-family: var(--font-display);
+  text-transform: uppercase; letter-spacing: .16em;
+  font-size: 13px; font-weight: 700; color: var(--on-sign-dim);
+  margin: 0 0 18px;
+}
+h1 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: clamp(38px, 7vw, 76px);
+  line-height: .95; letter-spacing: -.005em;
+  margin: 0 0 20px; color: var(--on-sign);
+  text-wrap: balance;
+}
+.hero-sub {
+  font-size: clamp(17px, 2.1vw, 20px); color: var(--on-sign-dim);
+  max-width: 54ch; margin: 0 0 30px; line-height: 1.55;
+}
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.hero-price-alt { margin: -16px 0 26px; font-size: 15px; color: var(--on-sign-dim); }
+.hero-price {
+  display: flex; align-items: baseline; gap: 10px;
+  margin: 0 0 26px;
+}
+.hero-price .num {
+  font-family: var(--font-num); font-variant-numeric: tabular-nums;
+  font-size: clamp(34px, 5.5vw, 52px); font-weight: 700;
+  color: var(--signal); line-height: 1;
+}
+.hero-price .unit { font-size: 15px; color: var(--on-sign-dim); font-weight: 600; }
+.hero-marks {
+  display: flex; flex-wrap: wrap; gap: 10px 26px;
+  margin: 32px 0 0; padding: 22px 0 0;
+  border-top: 1px solid rgba(255,255,255,.16);
+  list-style: none;
+}
+.hero-marks li {
+  color: var(--on-sign); font-size: 14.5px; font-weight: 600;
+  display: flex; align-items: center; gap: 8px;
+}
+.hero-marks svg { flex: none; }
+
+/* ---- sections ---- */
+section { padding: 62px 0; }
+.sec-head { max-width: 62ch; margin: 0 0 32px; }
+.sec-label {
+  font-family: var(--font-display);
+  text-transform: uppercase; letter-spacing: .16em;
+  font-size: 12.5px; font-weight: 700; color: var(--brand);
+  margin: 0 0 12px;
+}
+h2 {
+  font-family: var(--font-display); text-transform: uppercase;
+  font-size: clamp(27px, 4vw, 42px); line-height: 1.02;
+  margin: 0 0 12px; color: var(--ink); text-wrap: balance;
+}
+.sec-head p { margin: 0; color: var(--muted); font-size: 17px; }
+h3 { font-size: 19px; margin: 0 0 6px; color: var(--ink); font-weight: 700; }
+
+.band { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+/* ---- fleet ---- */
+.fleet { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+.car {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r); padding: 24px 22px 22px;
+  display: flex; flex-direction: column; gap: 14px;
+  transition: transform .14s ease, border-color .14s ease, box-shadow .14s ease;
+}
+.car:hover { transform: translateY(-3px); border-color: var(--brand); box-shadow: 0 14px 30px -20px rgba(11,27,51,.5); }
+.car-art {
+  width: 100%; height: auto; display: block;
+  color: var(--brand);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px 14px 10px;
+  margin-bottom: 4px;
+}
+.car .tier {
+  font-family: var(--font-display); text-transform: uppercase; letter-spacing: .14em;
+  font-size: 12px; font-weight: 700; color: var(--muted);
+}
+.car .models { color: var(--ink-2); font-size: 15.5px; margin: 0; }
+.car .rate { display: flex; align-items: baseline; gap: 8px; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line); }
+.car .rate .num {
+  font-family: var(--font-num); font-variant-numeric: tabular-nums;
+  font-size: 30px; font-weight: 700; color: var(--ink); line-height: 1;
+}
+.car .rate .unit { font-size: 13.5px; color: var(--muted); font-weight: 600; }
+.car .rate .alt { margin-left: auto; font-size: 13.5px; color: var(--muted); white-space: nowrap; }
+.car .note { font-size: 13.5px; color: var(--muted); margin: 0; }
+
+.fleet-stats {
+  list-style: none; margin: 30px 0 0; padding: 26px 0 0;
+  border-top: 1px solid var(--line);
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 20px;
+}
+.fleet-stats li { display: flex; flex-direction: column; gap: 2px; }
+.fleet-stats .n {
+  font-family: var(--font-num); font-variant-numeric: tabular-nums;
+  font-size: 34px; font-weight: 700; color: var(--brand); line-height: 1;
+}
+.fleet-stats .l { font-size: 14.5px; color: var(--muted); }
+
+/* ---- steps: a genuine sequence, so numbering carries meaning ---- */
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 26px; counter-reset: s; }
+.step { counter-increment: s; }
+.step::before {
+  content: counter(s);
+  font-family: var(--font-num); font-size: 15px; font-weight: 700;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--brand); color: var(--brand-ink);
+  margin-bottom: 14px;
+}
+.step p { margin: 0; color: var(--muted); font-size: 15.5px; }
+
+/* ---- checklists ---- */
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 34px; }
+.ticks { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.ticks li { display: flex; gap: 11px; align-items: flex-start; font-size: 16px; color: var(--ink-2); }
+.ticks svg { flex: none; margin-top: 4px; }
+
+/* ---- faq ---- */
+.faq { max-width: 74ch; display: grid; gap: 0; }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary {
+  cursor: pointer; list-style: none; padding: 18px 40px 18px 0; position: relative;
+  font-weight: 700; font-size: 17px; color: var(--ink);
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: "+"; position: absolute; right: 8px; top: 15px;
+  font-family: var(--font-num); font-size: 22px; color: var(--brand); font-weight: 400;
+}
+.faq details[open] summary::after { content: "−"; }
+.faq p { margin: 0 0 20px; color: var(--muted); font-size: 16px; max-width: 68ch; }
+
+/* ---- apply ---- */
+.apply { background: var(--sign-field); }
+.apply h2, .apply .sec-head p { color: var(--on-sign); }
+.apply .sec-head p { color: var(--on-sign-dim); }
+.apply .sec-label { color: var(--signal); }
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field.wide { grid-column: 1 / -1; }
+.field label { font-size: 13.5px; font-weight: 600; color: var(--on-sign-dim); }
+.field input, .field select, .field textarea {
+  font-family: var(--font-body); font-size: 16px;
+  background: rgba(255,255,255,.07); color: var(--on-sign);
+  border: 1px solid rgba(255,255,255,.26); border-radius: 8px;
+  padding: 11px 13px; width: 100%;
+}
+.field textarea { min-height: 96px; resize: vertical; }
+.field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,.4); }
+.field select option { background: #0b2444; color: #f4f8ff; }
+.form-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 22px; }
+.form-foot .small { font-size: 13.5px; color: var(--on-sign-dim); max-width: 46ch; margin: 0; }
+.form-ok {
+  background: rgba(245,165,36,.12); border: 1px solid var(--signal);
+  border-radius: var(--r); padding: 22px 24px; color: var(--on-sign);
+}
+.form-ok strong { color: var(--signal); }
+
+/* ---- footer ---- */
+.site-foot { background: var(--surface); border-top: 1px solid var(--line); padding: 46px 0 34px; }
+.foot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 30px; }
+.foot-grid h4 {
+  font-family: var(--font-display); text-transform: uppercase; letter-spacing: .14em;
+  font-size: 12px; margin: 0 0 12px; color: var(--muted);
+}
+.foot-grid p, .foot-grid a { margin: 0 0 6px; color: var(--ink-2); font-size: 15px; text-decoration: none; display: block; }
+.foot-grid a:hover { color: var(--brand); }
+.foot-bar {
+  margin-top: 34px; padding-top: 20px; border-top: 1px solid var(--line);
+  display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center;
+  font-size: 13.5px; color: var(--muted);
+}
+.foot-bar .tagline { font-style: italic; }
+.foot-bar nav { margin-left: auto; display: flex; gap: 18px; }
+
+@media (max-width: 860px) {
+  .nav { display: none; }
+  .sign-inner { padding: 32px 22px 30px; }
+  .site-head .wrap { gap: 12px; }
+  .tel { display: none; }
+}
+</style>
+
+
+<!-- Delete this line before the site goes live -->
+<div class="draft">Draft preview — vehicles, weekly rates and deposit are placeholders pending your confirmation.</div>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="A3S LLC home"><img src="data:image/jpeg;base64,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" alt="A3S LLC" width="302" height="112"></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#fleet">The fleet</a>
+      <a href="#how">How it works</a>
+      <a href="#requirements">Requirements</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="head-actions">
+      <a class="tel" href="tel:+18176228899">(817) 622-8899</a>
+      <a class="btn btn-signal" href="#apply">Apply now</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="sign">
+        <div class="sign-inner">
+          <p class="eyebrow">Irving, Texas · Serving the DFW metroplex · Open 24 hours</p>
+          <h1>Get the keys.<br>Start earning this week.</h1>
+          <p class="hero-sub">A small fleet of 2025 cars for Uber drivers. Insurance, maintenance and roadside assistance are included in one weekly price — and there is no long-term contract to sign.</p>
+          <p class="hero-price">
+            <span class="num">$600</span><span class="unit">per week, all in</span>
+          </p>
+          <p class="hero-price-alt">or $85 a day for shorter rentals</p>
+          <div class="hero-cta">
+            <a class="btn btn-signal" href="#apply">Apply in two minutes</a>
+            <a class="btn btn-ghost-light" href="tel:+18176228899">Call (817) 622-8899</a>
+          </div>
+          <ul class="hero-marks">
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#f5a524" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Insurance included</li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#f5a524" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Open 24 hours</li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#f5a524" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>2025 models only</li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#f5a524" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>$150 deposit, no credit check</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="fleet" class="band">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-label">The fleet</p>
+        <h2>Ten cars. Every one a 2025.</h2>
+        <p>We keep the fleet small and new on purpose. You are not inheriting someone else's high-mileage car — you get a current-model vehicle that passengers rate well and that spends its time on the road rather than in the shop. Rent by the week, or by the day if you only need a car for a few shifts.</p>
+      </div>
+
+      <div class="fleet">
+        <article class="car">
+          <svg class="car-art" viewBox="0 0 336 112" role="img" aria-hidden="true" focusable="false">
+            <g transform="translate(16,0)">
+            <path d="M18,80 L304,80 L304,72 C304,64 298,59 288,57 L244,50 C232,34 216,26 196,25 L150,25 C120,26 104,34 92,52 L40,57 C26,59 18,66 18,74 Z" fill="currentColor" opacity=".16"/>
+            <path d="M18,80 L304,80 L304,72 C304,64 298,59 288,57 L244,50 C232,34 216,26 196,25 L150,25 C120,26 104,34 92,52 L40,57 C26,59 18,66 18,74 Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
+            <path d="M106,50 L120,35 C126,31 134,29 146,29 L146,50 Z" fill="currentColor" opacity=".3"/>
+            <path d="M154,29 L194,29 C209,30 220,37 229,50 L154,50 Z" fill="currentColor" opacity=".3"/>
+            <line x1="150" y1="29" x2="150" y2="50" stroke="currentColor" stroke-width="2"/>
+            <circle cx="82" cy="80" r="17" fill="currentColor"/>
+            <circle cx="82" cy="80" r="7.5" fill="var(--surface)"/>
+            <circle cx="238" cy="80" r="17" fill="currentColor"/>
+            <circle cx="238" cy="80" r="7.5" fill="var(--surface)"/>
+            </g>
+            <line x1="10" y1="98" x2="326" y2="98" stroke="currentColor" stroke-width="2" opacity=".2" stroke-linecap="round"/>
+          </svg>
+          <p class="tier">Midsize</p>
+          <h3>2025 Hyundai Sonata</h3>
+          <p class="models">Or similar midsize</p>
+          <p class="note">More room and a quieter ride — the one drivers prefer for airport runs and longer trips, and it rates well with passengers.</p>
+          <p class="rate"><span class="num">$630</span><span class="unit">/ week</span><span class="alt">or $90 / day</span></p>
+        </article>
+        <article class="car">
+          <svg class="car-art" viewBox="0 0 336 112" role="img" aria-hidden="true" focusable="false">
+            <g transform="translate(30,0)">
+            <path d="M18,80 L276,80 L276,72 C276,64 270,59 260,57 L244,50 C232,34 216,26 196,25 L150,25 C120,26 104,34 92,52 L40,57 C26,59 18,66 18,74 Z" fill="currentColor" opacity=".16"/>
+            <path d="M18,80 L276,80 L276,72 C276,64 270,59 260,57 L244,50 C232,34 216,26 196,25 L150,25 C120,26 104,34 92,52 L40,57 C26,59 18,66 18,74 Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
+            <path d="M106,50 L120,35 C126,31 134,29 146,29 L146,50 Z" fill="currentColor" opacity=".3"/>
+            <path d="M154,29 L194,29 C209,30 220,37 229,50 L154,50 Z" fill="currentColor" opacity=".3"/>
+            <line x1="150" y1="29" x2="150" y2="50" stroke="currentColor" stroke-width="2"/>
+            <circle cx="82" cy="80" r="17" fill="currentColor"/>
+            <circle cx="82" cy="80" r="7.5" fill="var(--surface)"/>
+            <circle cx="210" cy="80" r="17" fill="currentColor"/>
+            <circle cx="210" cy="80" r="7.5" fill="var(--surface)"/>
+            </g>
+            <line x1="10" y1="98" x2="326" y2="98" stroke="currentColor" stroke-width="2" opacity=".2" stroke-linecap="round"/>
+          </svg>
+          <p class="tier">Compact</p>
+          <h3>2025 Toyota Corolla</h3>
+          <p class="models">Or similar compact</p>
+          <p class="note">The lowest weekly cost and the best fuel economy, which matters most when you are driving full-time.</p>
+          <p class="rate"><span class="num">$600</span><span class="unit">/ week</span><span class="alt">or $85 / day</span></p>
+        </article>
+      </div>
+
+      <ul class="fleet-stats">
+        <li><span class="n">10</span><span class="l">vehicles in the fleet</span></li>
+        <li><span class="n">2025</span><span class="l">model year, every car</span></li>
+        <li><span class="n">0</span><span class="l">cars older than a year</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-label">How it works</p>
+        <h2>From application to keys in 48 hours.</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <h3>Apply online</h3>
+          <p>Two minutes, no credit check. Tell us how long you have been licensed and whether you are approved on Uber yet.</p>
+        </div>
+        <div class="step">
+          <h3>We match you to a car</h3>
+          <p>We confirm availability in your tier and send you the weekly rate and deposit in writing.</p>
+        </div>
+        <div class="step">
+          <h3>Sign and collect</h3>
+          <p>Come to our Irving office at a time that suits you — we are open 24 hours. Sign, pay the $150 deposit and drive away the same day.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="requirements" class="band">
+    <div class="wrap">
+      <div class="cols">
+        <div>
+          <p class="sec-label">What's included</p>
+          <h2>The weekly rate covers it.</h2>
+          <ul class="ticks" style="margin-top:22px">
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#1b6ac9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Commercial rideshare insurance</li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#1b6ac9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Routine maintenance and oil changes</li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#1b6ac9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>24/7 roadside assistance</li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#1b6ac9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Unlimited miles for rideshare work</li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#1b6ac9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>A replacement car while yours is serviced</li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#1b6ac9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>A clear statement every week, showing earnings, charges and balance</li>
+          </ul>
+        </div>
+        <div>
+          <p class="sec-label">Requirements</p>
+          <h2>What you need to qualify.</h2>
+          <ul class="ticks" style="margin-top:22px">
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#1b6ac9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>25 or older</li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#1b6ac9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>A valid Texas driver&#39;s licence</li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#1b6ac9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Approved to drive on Uber &mdash; or ready to apply</li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#1b6ac9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>A refundable deposit of $150</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-label">Questions</p>
+        <h2>The things drivers ask us first.</h2>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>How much is the deposit, and do I get it back?</summary>
+          <p>The deposit is $150 and it is refundable. We return it after you hand the car back, once it has been checked for damage and any outstanding tolls or tickets have cleared.</p>
+        </details>
+        <details>
+          <summary>What do I need to bring when I collect the car?</summary>
+          <p>Your Texas driver&#39;s licence, your Uber driver approval, and the $150 deposit. Bring those and you can sign and drive the same day.</p>
+        </details>
+        <details>
+          <summary>Is there a mileage cap?</summary>
+          <p>No cap on rideshare miles. We ask that personal use stays reasonable — the car is a working vehicle, not a weekend road-trip rental.</p>
+        </details>
+        <details>
+          <summary>What happens if the car breaks down?</summary>
+          <p>Call us. Roadside assistance is included 24/7, and if the car needs to go in for more than a day we put you in a replacement so you are not losing earnings.</p>
+        </details>
+        <details>
+          <summary>How do I pay, and how do I know what I owe?</summary>
+          <p>Payment is weekly. Every week you receive a statement by email showing what you earned, what was deducted and what balance is carried forward — so there is never a question about where the number came from.</p>
+        </details>
+        <details>
+          <summary>What if I want to stop renting?</summary>
+          <p>Give us notice, return the car in good condition and we close out your account. There is no long-term contract and no early-termination penalty.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section id="apply" class="apply">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-label">Apply</p>
+        <h2>Tell us about yourself.</h2>
+        <p>Two minutes. We reply the same day, usually within a couple of hours.</p>
+      </div>
+      <form id="applyForm" novalidate>
+        <div class="form-grid">
+          <div class="field">
+            <label for="f-name">Full name</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required placeholder="Jane Doe">
+          </div>
+          <div class="field">
+            <label for="f-phone">Mobile number</label>
+            <input id="f-phone" name="phone" type="tel" autocomplete="tel" required placeholder="(214) 555-0147">
+          </div>
+          <div class="field">
+            <label for="f-email">Email</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required placeholder="jane@example.com">
+          </div>
+          <div class="field">
+            <label for="f-city">City</label>
+            <input id="f-city" name="city" type="text" autocomplete="address-level2" placeholder="Irving">
+          </div>
+          <div class="field">
+            <label for="f-status">Rideshare status</label>
+            <select id="f-status" name="status">
+              <option>Already approved on Uber</option>
+              <option>Applied to Uber, waiting on approval</option>
+              <option>Not approved yet — I want to start</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-licence">Texas licence held for</label>
+            <select id="f-licence" name="licence">
+              <option>Less than 1 year</option>
+              <option>1–3 years</option>
+              <option>3–5 years</option>
+              <option>More than 5 years</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-vehicle">Vehicle tier</label>
+            <select id="f-vehicle" name="vehicle">
+              <option>2025 Hyundai Sonata — midsize</option>
+              <option>2025 Toyota Corolla — compact</option>
+              <option>Whichever is available soonest</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-start">When do you want to start?</label>
+            <select id="f-start" name="start">
+              <option>As soon as possible</option>
+              <option>Within a week</option>
+              <option>Within a month</option>
+              <option>Just researching</option>
+            </select>
+          </div>
+          <div class="field wide">
+            <label for="f-notes">Anything we should know? (optional)</label>
+            <textarea id="f-notes" name="notes" placeholder="Previous rideshare experience, questions about the deposit, preferred pickup day…"></textarea>
+          </div>
+        </div>
+        <div class="form-foot">
+          <button class="btn btn-signal" type="submit">Send application</button>
+          <p class="small">We use your details only to process this application. We do not run a credit check and we never sell your information.</p>
+        </div>
+      </form>
+      <div class="form-ok" id="formOk" hidden>
+        <p style="margin:0 0 8px"><strong>Application received.</strong></p>
+        <p style="margin:0;color:var(--on-sign-dim)">We will call you on the number you gave us, usually within a couple of hours. If it is urgent, call <a href="tel:+18176228899" style="color:var(--signal)">(817) 622-8899</a>.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h4>A3S LLC</h4>
+        <p>391 Las Colinas Blvd E</p>
+        <p>Ste 130 - 2203</p>
+        <p>Irving, TX 75039</p>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="tel:+18176228899">(817) 622-8899</a>
+        <a href="mailto:contact@a3ss.com">contact@a3ss.com</a>
+      </div>
+      <div>
+        <h4>Hours</h4>
+        <p>Open 24 hours, seven days</p>
+        <p>Call any time — drivers work nights</p>
+      </div>
+      <div>
+        <h4>Service area</h4>
+        <p>The DFW metroplex</p>
+        <p>Dallas · Fort Worth · Irving and surrounding cities</p>
+      </div>
+    </div>
+    <div class="foot-bar">
+      <span>&copy; 2026 A3S LLC. All rights reserved.</span>
+      <span class="tagline">Trustworthy Companion</span>
+      <nav aria-label="Legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script>
+// The form is not wired to a backend yet. On the live site this posts to an
+// Apps Script endpoint that writes the application straight into the A3S
+// Driver Accounting sheet; here it just shows what the driver would see.
+document.getElementById('applyForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var required = ['f-name', 'f-phone', 'f-email'];
+  for (var i = 0; i < required.length; i++) {
+    var el = document.getElementById(required[i]);
+    if (!el.value.trim()) { el.focus(); el.style.borderColor = '#f5a524'; return; }
+  }
+  this.hidden = true;
+  var ok = document.getElementById('formOk');
+  ok.hidden = false;
+  ok.scrollIntoView({ block: 'center' });
+});
+</script>
+
